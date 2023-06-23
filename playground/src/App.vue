@@ -1,12 +1,11 @@
-<script setup lang="ts">
-import Card from "./components/Card.vue";
+<script setup>
+import Calc from "./components/Calc.vue";
 </script>
 
 <template>
   <div>
-    <Card msg="Filip Hruska ma mega cool prdel" />
+    <Calc></Calc>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

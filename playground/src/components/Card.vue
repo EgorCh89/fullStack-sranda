@@ -17,20 +17,20 @@ export default defineComponent({
 <template>
   <div class="card">
     <h1>{{ msg }}</h1>
-    <p>Tohle je hodne zlobiva carta</p>
+    <p></p>
   </div>
 </template>
 
-
-
-
 <style>
 .card {
-  width: 200;
-  height: 200;
-  border: 50px;
-  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+  border: 2px;
+  border-radius: 15%;
   background-color: blue;
+  text-align: center;
+  align-items: center;
+  display: grid;
 }
 h1,
 p {
