@@ -14,9 +14,12 @@ function operatorHandler(op) {
   text.value = "";
 }
 function resultHandler() {
-  text.value = eval(memory.value + operator.value + text.value);
-  memory.value = text.value;
+  if (!operator.value === "") {
+    text.value = eval(memory.value + operator.value + text.value);
+    memory.value = text.value;
+  }
 }
+
 function reset() {
   text.value = "";
   operator.value = "";
@@ -33,11 +36,7 @@ function negative() {
 <template>
   <div class="calc">
     <div class="col">
-      <input
-        v-model="text"
-        class="form-control"
-        type="number"
-        placeholder="0" />
+      <input v-model="text" class="form-control" type="number" />
     </div>
     <div class="col">
       <button @click="deletelast" class="btn">→</button>
@@ -80,7 +79,6 @@ function negative() {
       <button @click="numberHandler('.')" class="btn">.</button>
       <button @click="resultHandler" class="btn">=</button>
     </div>
-    <p>{{ text }} {{ operator }}</p>
   </div>
 </template>
 
@@ -115,5 +113,9 @@ function negative() {
   margin-bottom: 0.2em;
   background-color: var(--alt-color);
   border: 0;
+  color: var(--secondary-color);
+}
+.form-control:placeholder {
+  color: var(--secondary-color);
 }
 </style>
