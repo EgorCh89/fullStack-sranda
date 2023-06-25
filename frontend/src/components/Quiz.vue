@@ -7,14 +7,24 @@ const props = defineProps({
   },
 });
 const isSubmit = ref(false);
+const isTrue = ref([]);
+isTrue.value.push(ref([]));
+isTrue.value.push(ref([]));
+isTrue.value[1].value.push(ref(false));
+console.log(isTrue.value);
 const checkboxinput = ref([]);
+console.log(checkboxinput.value);
 for (let i = 0; i < props.questions.length; i++) {
-  let row = [];
+  let row = ref([]);
   for (let j = 0; j < props.questions[i].answers.length; j++) {
-    row.push();
+    row.value.push(ref(false));
   }
-  checkboxinput.value.push(row);
+
+  checkboxinput.value.push(row.value);
+  console.log(checkboxinput.value);
 }
+console.log("------------------");
+console.log(checkboxinput.value);
 /*
           v-model="checkboxinput.value[i][j]"
 
@@ -37,16 +47,18 @@ function Check() {
           type="radio"
           :name="question.question"
           :id="ans + question.answers + question"
+          v-model="checkboxinput[i][j]"
         />
         <label
           class="form-check-label"
           :for="ans + question.answers + question"
         >
-          {{ ans }}
+          {{ ans }} [{{ i }}|{{ j }}]
         </label>
       </div>
     </div>
     <button type="submit" class="btn btn-primary">Send</button>
   </form>
-  <div v-if="isSubmit">Your score: 69</div>
+  <div v-if="isSubmit">Your score: 69 {{ isTrue }}</div>
+  value = {{ checkboxinput }}
 </template>
