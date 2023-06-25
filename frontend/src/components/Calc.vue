@@ -37,48 +37,48 @@ function negative() {
       <input v-model="text" class="form-control" type="number" />
     </div>
     <div class="col">
-      <button @click="deletelast" class="btn">→</button>
-      <button @click="negative" class="btn">±</button>
-      <button @click="operatorHandler('+')" class="btn">+</button>
-      <button @click="reset" class="btn">C</button>
+      <button @click="deletelast" class="btn btn-c">→</button>
+      <button @click="negative" class="btn btn-c">±</button>
+      <button @click="operatorHandler('+')" class="btn btn-c">+</button>
+      <button @click="reset" class="btn btn-c">C</button>
     </div>
     <div class="col">
       <button
         v-for="number in [1, 2, 3]"
         :key="number"
         @click="numberHandler(number)"
-        class="btn"
+        class="btn btn-c"
       >
         {{ number }}
       </button>
-      <button @click="operatorHandler('/')" class="btn">/</button>
+      <button @click="operatorHandler('/')" class="btn btn-c">/</button>
     </div>
     <div class="col">
       <button
         v-for="number in [4, 5, 6]"
         :key="number"
         @click="numberHandler(number)"
-        class="btn"
+        class="btn btn-c"
       >
         {{ number }}
       </button>
-      <button @click="operatorHandler('-')" class="btn">-</button>
+      <button @click="operatorHandler('-')" class="btn btn-c">-</button>
     </div>
     <div class="col">
       <button
         v-for="number in [7, 8, 9]"
         :key="number"
         @click="numberHandler(number)"
-        class="btn"
+        class="btn btn-c"
       >
         {{ number }}
       </button>
-      <button @click="operatorHandler('*')" class="btn">*</button>
+      <button @click="operatorHandler('*')" class="btn btn-c">*</button>
     </div>
     <div class="col">
-      <button @click="numberHandler('0')" id="wide" class="btn">0</button>
-      <button @click="numberHandler('.')" class="btn">.</button>
-      <button @click="resultHandler" class="btn">=</button>
+      <button @click="numberHandler('0')" id="wide" class="btn btn-c">0</button>
+      <button @click="numberHandler('.')" class="btn btn-c">.</button>
+      <button @click="resultHandler" class="btn btn-c">=</button>
     </div>
   </div>
 </template>
@@ -96,14 +96,14 @@ function negative() {
 #wide {
   width: 6.4em;
 }
-.btn {
+.btn-c {
   background-color: var(--alt-color);
   color: var(--secondary-color);
   width: 3em;
   height: 3em;
   margin: 0.2em;
 }
-.btn:hover {
+.btn-c:hover {
   background-color: var(--hover-color);
 }
 .form-control {
