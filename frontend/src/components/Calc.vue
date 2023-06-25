@@ -14,10 +14,8 @@ function operatorHandler(op) {
   text.value = "";
 }
 function resultHandler() {
-  if (!operator.value === "") {
-    text.value = eval(memory.value + operator.value + text.value);
-    memory.value = text.value;
-  }
+  text.value = eval(memory.value + operator.value + text.value);
+  memory.value = text.value;
 }
 
 function reset() {
@@ -49,7 +47,8 @@ function negative() {
         v-for="number in [1, 2, 3]"
         :key="number"
         @click="numberHandler(number)"
-        class="btn">
+        class="btn"
+      >
         {{ number }}
       </button>
       <button @click="operatorHandler('/')" class="btn">/</button>
@@ -59,7 +58,8 @@ function negative() {
         v-for="number in [4, 5, 6]"
         :key="number"
         @click="numberHandler(number)"
-        class="btn">
+        class="btn"
+      >
         {{ number }}
       </button>
       <button @click="operatorHandler('-')" class="btn">-</button>
@@ -69,7 +69,8 @@ function negative() {
         v-for="number in [7, 8, 9]"
         :key="number"
         @click="numberHandler(number)"
-        class="btn">
+        class="btn"
+      >
         {{ number }}
       </button>
       <button @click="operatorHandler('*')" class="btn">*</button>
