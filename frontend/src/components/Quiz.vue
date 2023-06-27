@@ -1,29 +1,28 @@
 <script setup>
 import { defineComponent, onMounted, ref } from "vue";
 const props = defineProps({
-  questions: {
-    type: Array,
-    requied: true,
-  },
+  set: Object,
 });
+console.log(props.set.info);
+
 const isSubmit = ref(false);
 const checkboxinput = ref([]);
 const showRight = ref(false);
 const score = ref(0);
-
-for (let i = 0; i < props.questions.length; i++) {
+const questions = ref(props.set.questions);
+for (let i = 0; i < questions.length; i++) {
   checkboxinput.value.push(ref());
 }
-/*
-          v-model="checkboxinput.value[i][j]"
 
-*/
 function Check() {
   isSubmit.value = true;
-  for (let i = 0; i < props.questions.length; i++) {
+  console.log(questions.value);
+  for (let i = 0; i < questions.value.length; i++) {
+    console.log(checkboxinput.value[i]);
+    console.log(questions.value[i].answers[questions.value[i].right]);
     if (
       checkboxinput.value[i] ===
-      props.questions[i].answers[props.questions[i].right]
+      questions.value[i].answers[questions.value[i].right]
     ) {
       score.value++;
     }
@@ -32,6 +31,7 @@ function Check() {
 </script>
 
 <template>
+  <h1>{{ set.info.name }}</h1>
   <form @submit="Check" v-if="!isSubmit">
     <div v-for="(question, i) in questions">
       <h2>{{ question.question }}</h2>
@@ -73,18 +73,12 @@ function Check() {
           type="radio"
           :name="question.question"
           :id="ans + question.answers + question"
-          :class="
-            j === question.right
-              ? 'right'
-              : checkboxinput[i] === ans
-              ? 'wrong'
-              : ''
-          "
+          :class="true ? 'right' : checkboxinput[i] === ans ? 'wrong' : ''"
         />
         <label
           class="form-check-label"
           :class="
-            j === question.right
+            question.right === [] // TODO: dodelat!
               ? 'right'
               : checkboxinput[i] === ans
               ? 'wrong'
@@ -92,7 +86,7 @@ function Check() {
           "
           :for="ans + question.answers + question"
         >
-          {{ ans }}
+          {{ ans }} a {{ question.right }}
         </label>
       </div>
     </div>
