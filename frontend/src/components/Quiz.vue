@@ -3,15 +3,15 @@ import { defineComponent, onMounted, ref } from "vue";
 const props = defineProps({
   set: Object,
 });
-console.log(props.set.info);
 
 const isSubmit = ref(false);
 const checkboxinput = ref([]);
 const showRight = ref(false);
 const score = ref(0);
 const questions = ref(props.set.questions);
-for (let i = 0; i < questions.length; i++) {
-  checkboxinput.value.push(ref());
+console.log(questions.value.length);
+for (let i = 0; i < questions.value.length; i++) {
+  checkboxinput.value.push([]);
 }
 
 function Check() {
@@ -37,19 +37,14 @@ function Check() {
       <h2>{{ question.question }}</h2>
       <div class="form-check" v-for="(ans, j) in question.answers">
         <input
-          required
           class="form-check-input"
-          type="radio"
+          type="checkbox"
           :value="ans"
-          :name="question.question"
-          :id="ans + question.answers + question"
+          :id="ans"
           v-model="checkboxinput[i]"
         />
-        <label
-          class="form-check-label"
-          :for="ans + question.answers + question"
-        >
-          {{ ans }}
+        <label class="form-check-label" :for="ans">
+          {{ ans }} {{ checkboxinput }}
         </label>
       </div>
     </div>
@@ -70,15 +65,20 @@ function Check() {
         <input
           :checked="checkboxinput[i] === ans ? true : false"
           class="form-check-input"
-          type="radio"
-          :name="question.question"
+          type="checkbox"
           :id="ans + question.answers + question"
-          :class="true ? 'right' : checkboxinput[i] === ans ? 'wrong' : ''"
+          :class="
+            question.right.includes(j)
+              ? 'right'
+              : checkboxinput[i] === ans
+              ? 'wrong'
+              : ''
+          "
         />
         <label
           class="form-check-label"
           :class="
-            question.right === [] // TODO: dodelat!
+            question.right.includes(j) // TODO: dodelat!
               ? 'right'
               : checkboxinput[i] === ans
               ? 'wrong'
@@ -86,10 +86,34 @@ function Check() {
           "
           :for="ans + question.answers + question"
         >
-          {{ ans }} a {{ question.right }}
+          {{ ans }}
         </label>
       </div>
     </div>
+  </div>
+
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value=""
+      id="flexCheckDefault"
+    />
+    <label class="form-check-label" for="flexCheckDefault">
+      Default checkbox
+    </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value=""
+      id="flexCheckDefault"
+      checked
+    />
+    <label class="form-check-label" for="flexCheckChecked">
+      Checked checkbox
+    </label>
   </div>
 </template>
 
