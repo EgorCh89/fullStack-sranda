@@ -9,21 +9,27 @@ const checkboxinput = ref([]);
 const showRight = ref(false);
 const score = ref(0);
 const questions = ref(props.set.questions);
-console.log(questions.value.length);
 for (let i = 0; i < questions.value.length; i++) {
   checkboxinput.value.push([]);
 }
 
 function Check() {
   isSubmit.value = true;
-  console.log(questions.value);
   for (let i = 0; i < questions.value.length; i++) {
-    console.log(checkboxinput.value[i]);
-    console.log(questions.value[i].answers[questions.value[i].right]);
-    if (
-      checkboxinput.value[i] ===
-      questions.value[i].answers[questions.value[i].right]
-    ) {
+    let rights = [];
+
+    for (let g = 0; g < questions.value[i].right.length; g++) {
+      rights.push(questions.value[i].answers[questions.value[i].right[g]]);
+    }
+    let add = !(checkboxinput.value[i].length === 0);
+    for (let j = 0; j < checkboxinput.value[i].length; j++) {
+      let atLeastOneCorrect = false;
+
+      if (!rights.includes(checkboxinput.value[i][j])) {
+        add = false;
+      }
+    }
+    if (add) {
       score.value++;
     }
   }
@@ -34,7 +40,9 @@ function Check() {
   <h1>{{ set.info.name }}</h1>
   <form @submit="Check" v-if="!isSubmit">
     <div v-for="(question, i) in questions">
-      <h2>{{ question.question }}</h2>
+      <h2>
+        {{ question.required ? "*" + question.question : question.question }}
+      </h2>
       <div class="form-check" v-for="(ans, j) in question.answers">
         <input
           class="form-check-input"
@@ -44,7 +52,7 @@ function Check() {
           v-model="checkboxinput[i]"
         />
         <label class="form-check-label" :for="ans">
-          {{ ans }} {{ checkboxinput }}
+          {{ question.required ? "*" + ans : ans }}
         </label>
       </div>
     </div>
@@ -63,14 +71,15 @@ function Check() {
       <h2>{{ question.question }}</h2>
       <div class="form-check" v-for="(ans, j) in question.answers">
         <input
-          :checked="checkboxinput[i] === ans ? true : false"
+          :checked="checkboxinput[i].includes(ans) ? true : false"
           class="form-check-input"
           type="checkbox"
+          :disable="true"
           :id="ans + question.answers + question"
           :class="
             question.right.includes(j)
               ? 'right'
-              : checkboxinput[i] === ans
+              : checkboxinput[i].includes(ans)
               ? 'wrong'
               : ''
           "
@@ -80,7 +89,7 @@ function Check() {
           :class="
             question.right.includes(j) // TODO: dodelat!
               ? 'right'
-              : checkboxinput[i] === ans
+              : checkboxinput[i].includes(ans)
               ? 'wrong'
               : ' '
           "
@@ -90,30 +99,6 @@ function Check() {
         </label>
       </div>
     </div>
-  </div>
-
-  <div class="form-check">
-    <input
-      class="form-check-input"
-      type="checkbox"
-      value=""
-      id="flexCheckDefault"
-    />
-    <label class="form-check-label" for="flexCheckDefault">
-      Default checkbox
-    </label>
-  </div>
-  <div class="form-check">
-    <input
-      class="form-check-input"
-      type="checkbox"
-      value=""
-      id="flexCheckDefault"
-      checked
-    />
-    <label class="form-check-label" for="flexCheckChecked">
-      Checked checkbox
-    </label>
   </div>
 </template>
 
