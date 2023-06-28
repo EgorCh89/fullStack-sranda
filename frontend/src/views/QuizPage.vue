@@ -15,8 +15,8 @@ let questions = [
   },
   {
     question: "Do you like Masa?",
-    answers: ["No", "Yes!", "No", "mb"],
-    right: 1,
+    answers: ["Yes!"],
+    right: 0,
   },
   {
     question: "Do you play House Fliper?",
